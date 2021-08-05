@@ -61,3 +61,47 @@ items = [el for el in range(100, 1001, 2)]
 result = reduce(lambda x, y: x*y, items)
 print(result)
 
+# 6. Реализовать два небольших скрипта:
+# а) итератор, генерирующий целые числа, начиная с указанного,
+# б) итератор, повторяющий элементы некоторого списка, определенного заранее.
+# Подсказка: использовать функцию count() и cycle() модуля itertools. Обратите внимание, что создаваемый цикл
+# не должен быть бесконечным. Необходимо предусмотреть условие его завершения.
+
+# from itertools import cycle
+
+start_from = 10
+iterable = "ABCDEF"
+iterations_count = 0
+
+# def integer_generator(start_from):
+#     for el in count(start_from):
+#         if el > start_from+10:
+#             break
+#         yield el
+
+for el in cycle(iterable):
+    if el == iterable[0]:
+        iterations_count += 1
+    if iterations_count <3:
+        print(el)
+    else:
+        break
+
+# 7. Реализовать генератор с помощью функции с ключевым словом yield, создающим очередное значение. 
+# При вызове функции должен создаваться объект-генератор. Функция должна вызываться следующим 
+# образом: for el in fact(n). Функция отвечает за получение факториала числа, а в цикле необходимо выводить 
+# только первые n чисел, начиная с 1! и до n!.
+
+from functools import reduce
+from itertools import count
+
+def fact(n):
+    for i in count(1):
+        if i <= n:
+            result = reduce(lambda x, y: x*y, range(1, i+1))
+            yield result
+        else:
+            break
+
+for el in fact(10):
+    print(el)
